@@ -72,17 +72,17 @@ const game = this;
 function embedGen(text, color) {
     const embed = new discord.EmbedBuilder()
     .setTitle(game.options?.title ??"Guess The Number")
-    .setDescription(`${game.options?.startDes ?? `Guess the Number I\'m thinking of in ${game.options?.tries ?? 3 } tries which lies between 1-${game.options?.max ?? 20}`} ${text ? `\n\n\`\`\`${text}\`\`\``:""}`)
+    .setDescription(`${game.options?.startDes ?? `Guess the Number I\'m thinking of in ${game.options?.tries ?? 3 } tries which lies between 1-${game.options?.max ?? 100}`} ${text ? `\n\n\`\`\`${text}\`\`\``:""}`)
     .setColor(color)
     .setTimestamp()
     .setFooter({text:`Requested by ${game.player.username}`})
     .setThumbnail(game.player.avatarURL());
     return embed;
 }
-const number = random(1,this.options?.max ?? 20)
+const number = random(1,this.options?.max ?? 100)
 let tries = this.options?.tries ?? 3;
 const msg = await this.edit({embeds:[embedGen(null,"Blue")]},this.message)
-const collectorFilter = m => m && m.author.id == this.player.id && !isNaN(m.content) && m.content < 21 && m.content > 0;
+const collectorFilter = m => m && m.author.id == this.player.id && !isNaN(m.content) && m.content < 101 && m.content > 0;
 const collector = msg.channel.createMessageCollector({ filter: collectorFilter, idle: this.time, max:this.options?.tries ?? 3 });
 let played = false;
 collector.on('collect', async m => {
